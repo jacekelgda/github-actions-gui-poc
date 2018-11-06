@@ -3,7 +3,8 @@ import './App.css';
 
 class App extends Component {
   state = {
-    startDragging: false
+    startDragging: false,
+    childrenEvents: null
   }
 
   drawingLock = true
@@ -39,10 +40,21 @@ class App extends Component {
     }
   }
 
+  onStopDragging = (e) => {
+    this.lockDrawing()
+    this.setState({ startDragging: false })
+  }
+
+  addNewEvent = () => {
+    this.onStopDragging()
+    this.setState({
+      childrenEvents: [ <div className="event" key="1"><div className="info"><h4>New orchestration</h4></div></div> ]
+    })
+  }
+
   lockDrawing = () => {
     this.drawingLock = true
     this.clickOnTarget = false
-    this.setState({ startDragging: false })
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -51,13 +63,11 @@ class App extends Component {
   onClickOnTarget = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    console.log('onClickOnTarget')
     this.clickOnTarget = true
   }
 
   componentDidMount () {
     document.addEventListener('mousedown', this.unlockDrawing)
-    document.addEventListener('mouseup', this.lockDrawing)
     document.addEventListener('mousemove', this.onStartDragging)
   }
 
@@ -73,11 +83,11 @@ class App extends Component {
             </div>
             <div className="handle">
               <div className="handleButton" onMouseDown={this.onClickOnTarget} />
-              <canvas width="300" height="300" id="canvas" />
+              <canvas width="300" height="300" id="canvas" onMouseUp={this.onStopDragging} />
             </div>
           </div>
           { this.state.startDragging && (
-            <div className="new-event">
+            <div className="new-event" onMouseUp={this.addNewEvent}>
               <div className="info">
                 <h4>Some action</h4>
               </div>
@@ -86,6 +96,7 @@ class App extends Component {
               </div>
             </div>
           )}
+          { this.state.childrenEvents }
       </div>
     );
   }
