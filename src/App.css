@@ -18,6 +18,22 @@
   margin-bottom: 80px;
 }
 
+.new-event {
+  color: white;
+  width: 384px;
+  height: 200px;
+  background: #6a737d;
+  position: relative;
+  border-radius: 5px;
+  box-shadow: inset 0 0 0 1px #444d56, 0 2px 4px rgba(0,0,0,.15);
+  margin-bottom: 80px;
+  opacity: 0.3;
+}
+
+.new-event:hover {
+  opacity: 1;
+}
+
 .info {
   padding-top: 24px;
   padding-bottom: 24px;

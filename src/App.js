@@ -2,7 +2,22 @@ import React, { Component } from 'react';
 import './App.css';
 
 class App extends Component {
-  drawLine (e) {
+  state = {
+    startDragging: false
+  }
+
+  drawingLock = true
+  clickOnTarget = false
+
+  onStartDragging = (e) => {
+    if (this.drawingLock) {
+      return
+    }
+    this.drawLine(e)
+    this.setState({ startDragging: true })
+  }
+  
+  drawLine = (e) => {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
     var rect = canvas.getBoundingClientRect();
@@ -14,12 +29,36 @@ class App extends Component {
     ctx.lineWidth = 5
     ctx.lineCap = 'round'
     ctx.strokeStyle = '#2188ff'
-      ctx.lineTo(x, y);
-      ctx.stroke();
+    ctx.lineTo(x, y);
+    ctx.stroke();
+  }
+
+  unlockDrawing = () => {
+    if (this.clickOnTarget) {
+      this.drawingLock = false
+    }
+  }
+
+  lockDrawing = () => {
+    this.drawingLock = true
+    this.clickOnTarget = false
+    this.setState({ startDragging: false })
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+  }
+
+  onClickOnTarget = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    console.log('onClickOnTarget')
+    this.clickOnTarget = true
   }
 
   componentDidMount () {
-    document.addEventListener("mousemove", this.drawLine);
+    document.addEventListener('mousedown', this.unlockDrawing)
+    document.addEventListener('mouseup', this.lockDrawing)
+    document.addEventListener('mousemove', this.onStartDragging)
   }
 
   render() {
@@ -33,10 +72,20 @@ class App extends Component {
               <p>Edit</p>
             </div>
             <div className="handle">
-              <div className="handleButton" />
+              <div className="handleButton" onMouseDown={this.onClickOnTarget} />
               <canvas width="300" height="300" id="canvas" />
             </div>
           </div>
+          { this.state.startDragging && (
+            <div className="new-event">
+              <div className="info">
+                <h4>Some action</h4>
+              </div>
+              <div className="actions">
+                <p>Edit</p>
+              </div>
+            </div>
+          )}
       </div>
     );
   }
