@@ -48,7 +48,18 @@ class App extends Component {
   addNewEvent = () => {
     this.onStopDragging()
     this.setState({
-      childrenEvents: [ <div className="event" key="1"><div className="info"><h4>New orchestration</h4></div></div> ]
+      childrenEvents: [ (<div className="connected-event" key="1">
+          <div className="info">
+            <div className="border-mask" />
+            <div className="handleButton" />
+            <h4>New orchestration</h4>
+            <div className="details">
+              <p>Some deatils</p>
+            </div>
+            <div className="handle" />
+          </div>
+        </div>)
+      ]
     })
   }
 
@@ -87,14 +98,7 @@ class App extends Component {
             </div>
           </div>
           { this.state.startDragging && (
-            <div className="new-event" onMouseUp={this.addNewEvent}>
-              <div className="info">
-                <h4>Some action</h4>
-              </div>
-              <div className="actions">
-                <p>Edit</p>
-              </div>
-            </div>
+            <div className="new-event" onMouseUp={this.addNewEvent} />
           )}
           { this.state.childrenEvents }
       </div>
