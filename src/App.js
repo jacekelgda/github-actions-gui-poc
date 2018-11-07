@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import './App.css';
+import EditPanel from './components/EditPanel'
 
 class App extends Component {
   state = {
     startDragging: false,
-    childrenEvents: null
+    childrenEvents: null,
+    editedAssetId: null
   }
 
   drawingLock = true
@@ -82,26 +84,44 @@ class App extends Component {
     document.addEventListener('mousemove', this.onStartDragging)
   }
 
+  editAsset = (name) => {
+    this.setState({
+      editedAssetId: 1,
+      editedAssetName: name
+    })
+  }
+
+  closeEditPanel = () => {
+    this.setState({
+      editedAssetId: null
+    })
+  }
+
   render() {
     return (
-      <div className="App">
+      <Fragment>
+        {this.state.editedAssetId && <EditPanel name={this.state.editedAssetName} assetId={this.state.editedAssetId} onDismiss={this.closeEditPanel} />}
+        <div className="App">
+          
           <div className="event">
             <div className="info">
               <h4>Some action</h4>
             </div>
             <div className="actions">
-              <p>Edit</p>
+              <span onClick={() => this.editAsset('Some action')}>Edit</span>
             </div>
             <div className="handle">
               <div className="handleButton" onMouseDown={this.onClickOnTarget} />
               <canvas width="300" height="300" id="canvas" onMouseUp={this.onStopDragging} />
             </div>
+            { this.state.childrenEvents && <div className="connection" />}
           </div>
           { this.state.startDragging && (
             <div className="new-event" onMouseUp={this.addNewEvent} />
           )}
           { this.state.childrenEvents }
-      </div>
+        </div>
+      </Fragment>
     );
   }
 }

@@ -1,0 +1,39 @@
+.edit-panel {
+    color: #24292e;
+    width: 384px;
+    height: 500px;
+    background: #f6f8fa;
+    position: fixed;
+    border-radius: 5px;
+    box-shadow: inset 0 0 0 1px #e1e4e8, 0 2px 4px rgba(0,0,0,.15);
+    margin: 25px;
+    right: 0;
+}
+
+.edit-panel .info {
+    padding: 24px;
+}
+
+.edit-panel .action-area {
+    padding: 25px;
+    background: white;
+    position: relative;
+}
+
+.edit-panel .actions {
+    background: white;
+    box-shadow: inset 0 0 0 1px #e1e4e8;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    text-align: left;
+    padding: 25px;
+    height: 75%;
+}
+
+.edit-panel .close {
+    padding: 10px;
+}
+
+.edit-panel button {
+    font-weight: 600;
+}
