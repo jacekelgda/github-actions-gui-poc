@@ -1,16 +1,11 @@
-import { decorate, observable, action, reaction } from 'mobx'
+import { decorate, observable, action } from 'mobx'
 
 export default class AssetsStore {
     assets = []
 
-    someReaction = reaction(() => { console.log('1')}, () => {console.log('2')})
-
     addAsset (value) {
-        console.log('add asset ..', value)
         this.assets.push(value)
     }
-
-    
 }
 
 decorate(AssetsStore, {

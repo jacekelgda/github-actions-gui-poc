@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react' 
 import { FormGroup, ControlLabel, FormControl, HelpBlock, Button, Alert } from 'react-bootstrap'
-import './EditPanel.css';
+import './EditPanel.css'
+import { withBus } from 'react-bus'
 
 const FieldGroup = ({ id, label, help, ...props }) => {
     return (
@@ -25,7 +26,7 @@ const AssetsList = ({ assets }) => {
 }
 
 
-const EditPanel = observer(class EditPanel extends Component {
+const EditPanel = withBus()(observer(class EditPanel extends Component {
     state = {
         value: ''
     }
@@ -34,6 +35,7 @@ const EditPanel = observer(class EditPanel extends Component {
         e.preventDefault()
         this.props.store.addAsset(this.state.value)
         this.setState({ value: ''})
+        this.props.bus.emit('master.assetAdded')
     }
 
     onChange = (e) => {
@@ -62,6 +64,6 @@ const EditPanel = observer(class EditPanel extends Component {
             </Alert>
         )
     }
-})
+}))
 
 export default EditPanel;
