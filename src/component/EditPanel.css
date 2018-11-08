@@ -37,3 +37,7 @@
 .edit-panel button {
     font-weight: 600;
 }
+
+.assets-list {
+    padding: 25px;
+}

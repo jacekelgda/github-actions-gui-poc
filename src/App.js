@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import './App.css';
-import EditPanel from './components/EditPanel'
+import EditPanel from './component/EditPanel'
+import AssetsStore from './store/AssetsStore'
 
 class App extends Component {
   state = {
@@ -84,10 +85,9 @@ class App extends Component {
     document.addEventListener('mousemove', this.onStartDragging)
   }
 
-  editAsset = (name) => {
+  editAsset = (id) => {
     this.setState({
-      editedAssetId: 1,
-      editedAssetName: name
+      editedAssetId: id
     })
   }
 
@@ -100,7 +100,7 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        {this.state.editedAssetId && <EditPanel name={this.state.editedAssetName} assetId={this.state.editedAssetId} onDismiss={this.closeEditPanel} />}
+        {this.state.editedAssetId && <EditPanel store={new AssetsStore()} assetId={this.state.editedAssetId} onDismiss={this.closeEditPanel} />}
         <div className="App">
           
           <div className="event">
@@ -108,7 +108,7 @@ class App extends Component {
               <h4>Some action</h4>
             </div>
             <div className="actions">
-              <span onClick={() => this.editAsset('Some action')}>Edit</span>
+              <span onClick={() => this.editAsset('0')}>Edit</span>
             </div>
             <div className="handle">
               <div className="handleButton" onMouseDown={this.onClickOnTarget} />
