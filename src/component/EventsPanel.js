@@ -9,9 +9,13 @@ const EventsPanel = withBus()(class EventsPanel extends Component {
     }
 
     componentDidMount = () => {
-        this.props.bus.on('*', (name, data) => {
+        this.props.bus.on('*', (name, data = '') => {
+            let message = `Event "${name}" was published`
+            if (name === 'subscriber.new') {
+                message = 'New subscriber has been created'
+            }
             this.setState(prevState => ({
-                events: [...prevState.events, { name, data }]
+                events: [...prevState.events, { name, message }]
             }))
         })
     }
@@ -28,7 +32,7 @@ const EventsPanel = withBus()(class EventsPanel extends Component {
             <Panel.Body>
                 <ul>
                     {this.state.events.map(
-                        ({ name }, index) => (<li key={index}>Event "{name}" was published</li>)
+                        ({ message }, index) => (<li key={index}>{message}</li>)
                     )}
                 </ul>
             </Panel.Body>

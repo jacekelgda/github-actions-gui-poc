@@ -65,6 +65,7 @@ const Event = withBus()(class Event extends Component {
             </div>)
           ]
         })
+        this.props.bus.emit('subscriber.new')
       }
     
       lockDrawing = () => {
