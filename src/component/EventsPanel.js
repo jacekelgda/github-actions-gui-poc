@@ -21,13 +21,13 @@ const EventsPanel = withBus()(class EventsPanel extends Component {
     }
 
     render () {
-        return (<Panel style={{
+        return (<div>{ this.state.events.length > 0 ? (<Panel style={{
             width: '500px',
             position: 'absolute',
             margin: '10px'
         }}>
             <Panel.Heading>
-              <Panel.Title componentClass="h3">Panel heading with a title</Panel.Title>
+              <Panel.Title componentClass="h3">Event bus output</Panel.Title>
             </Panel.Heading>
             <Panel.Body>
                 <ul>
@@ -36,7 +36,7 @@ const EventsPanel = withBus()(class EventsPanel extends Component {
                     )}
                 </ul>
             </Panel.Body>
-          </Panel>)
+          </Panel>) : null }</div>)
     }
 })
 
