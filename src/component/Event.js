@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withBus } from 'react-bus'
 import './Event.css'
 import EditPanel from './EditPanel'
+import Action from './Action'
 import AssetsStore from '../store/AssetsStore'
 
 const Event = withBus()(class Event extends Component {
@@ -52,18 +53,7 @@ const Event = withBus()(class Event extends Component {
       addNewEvent = () => {
         this.onStopDragging()
         this.setState({
-          childrenEvents: [ (<div className="connected-event" key="1">
-              <div className="info">
-                <div className="border-mask" />
-                <div className="handleButton" />
-                <h4>New orchestration</h4>
-                <div className="details">
-                  <p>Some deatils</p>
-                </div>
-                <div className="handle" />
-              </div>
-            </div>)
-          ]
+          childrenEvents: [ <Action key="0" /> ]
         })
         this.props.bus.emit('subscriber.new')
       }
