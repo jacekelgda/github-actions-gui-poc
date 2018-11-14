@@ -8,16 +8,19 @@
     box-shadow: inset 0 0 0 1px #e1e4e8, 0 2px 4px rgba(0,0,0,.15);
     margin: 25px;
     right: 0;
+    text-align: left;
 }
 
 .edit-panel .info {
     padding: 24px;
+    text-align: left;
 }
 
 .edit-panel .action-area {
     padding: 25px;
     background: white;
     position: relative;
+    text-align: left;
 }
 
 .edit-panel .actions {
@@ -28,6 +31,7 @@
     text-align: left;
     padding: 25px;
     height: 75%;
+    text-align: left;
 }
 
 .edit-panel .close {
@@ -40,4 +44,5 @@
 
 .assets-list {
     padding: 25px;
+    text-align: left;
 }

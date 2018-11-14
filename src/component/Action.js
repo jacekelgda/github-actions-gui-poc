@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { withBus } from 'react-bus'
-import './Action.css'
+import './css/Action.css'
+import EditPanel from './EditPanel'
+import AssetsStore from '../store/AssetsStore'
 
 const Action = withBus()(class Action extends Component {
     render () {
@@ -12,7 +14,7 @@ const Action = withBus()(class Action extends Component {
           <div className="details">
             <p>Action details</p>
           </div>
-          <span onClick={() => this.editAsset('1')}>Edit</span>
+          <EditPanel store={new AssetsStore()} />
           <div className="handle" />
         </div>
       </div>)
